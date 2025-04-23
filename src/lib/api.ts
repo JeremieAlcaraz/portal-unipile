@@ -6,8 +6,11 @@ export interface AuthLinkResponse {
 }
 
 export async function getAuthLink(): Promise<AuthLinkResponse> {
-  // Utiliser une URL relative simple
-  console.log("Appel API vers: /api/auth/get-link");
-  const response = await axios.post('/api/auth/get-link');
+  // Utiliser l'URL absolue basée sur l'origine actuelle
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+  
+  console.log("Appel API vers:", `${baseUrl}/api/auth/get-link`);
+  
+  const response = await axios.post(`${baseUrl}/api/auth/get-link`);
   return response.data;
 }

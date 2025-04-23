@@ -1,37 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Démo d'intégration Unipile Hosted Auth Wizard
 
-## Getting Started
+Ce projet démontre comment intégrer le système d'authentification Hosted Auth Wizard de Unipile dans une application Next.js.
 
-First, run the development server:
+## Technologies utilisées
+
+- Next.js 15
+- Bun (gestionnaire de paquets et runtime)
+- Tailwind CSS
+- shadcn/ui (bibliothèque de composants)
+- API Unipile
+
+## Configuration requise
+
+### Variables d'environnement
+
+Créez un fichier `.env.local` à la racine du projet avec les variables suivantes :
+
+```
+NEXT_PUBLIC_UNIPILE_API_URL=https://apiXXX.unipile.com:XXX
+UNIPILE_API_KEY=XXXXXXXX
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+Remplacez les valeurs par vos propres informations d'API Unipile.
+
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+# Cloner le projet
+git clone <url-du-repo>
+cd unipile-auth-demo
+
+# Installer les dépendances
+bun install
+
+# Démarrer le serveur de développement
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Fonctionnement
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. L'utilisateur clique sur le bouton "Connecter un compte" sur la page d'accueil
+2. Une requête est envoyée au backend pour générer un lien d'authentification Unipile
+3. L'utilisateur est redirigé vers l'interface Hosted Auth Wizard de Unipile
+4. Après l'authentification réussie, Unipile envoie un webhook à votre API
+5. L'utilisateur est redirigé vers la page de succès
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure du projet
 
-## Learn More
+- `src/app/page.tsx` - Page d'accueil avec le bouton de connexion
+- `src/app/success/page.tsx` - Page de succès après la connexion
+- `src/app/api/auth/get-link/route.ts` - API pour générer le lien d'authentification
+- `src/app/api/auth/callback/route.ts` - API pour recevoir le webhook de Unipile
+- `src/lib/api.ts` - Fonctions pour interagir avec l'API
+- `src/components/ui/` - Composants UI réutilisables
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# portal-unipile
